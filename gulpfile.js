@@ -1,7 +1,7 @@
 
 //---------
-const cssPublic = './UserInterface/Public/Linkdev.MofaicAid.Public.Web/CSS/';
-const cssInternal = './UserInterface/Internal/Linkdev.MofaicAid.Internal.Web/CSS/';
+const cssPublic = './Web/CSS/';
+const cssInternal = './Web/CSS/';
 //---------
 const { src, dest, parallel, series, watch, task } = require('gulp');
 const sass = require('gulp-sass');
@@ -11,13 +11,6 @@ const concat = require('gulp-concat');
 
 //---------
 
-
-
-//function RunThis(cb) {
-//    return run('copy "D:\LD-Project\MofaicAid\MOFAIC Aid\UserInterface\
-//Public\Linkdev.MofaicAid.Public.Web\CSS\Style.css" C:\MofaicAid\Public\CSS');
-//    //cb();
-//}
 
 function css() {
     return src( cssPublic + '_SASS/Style.scss')
