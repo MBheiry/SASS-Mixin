@@ -1,0 +1,115 @@
+@mixin transform($property) {
+    -webkit-transform: $property;
+    -ms-transform: $property;
+    transform: $property;
+  }
+  @mixin input-placeholder {
+    &.placeholder { @content; }
+    &:-moz-placeholder { @content; }
+    &::-moz-placeholder { @content; }
+    &:-ms-input-placeholder { @content; }
+    &::-webkit-input-placeholder { @content; }
+}
+@mixin transform($property, $time) {
+    -webkit-transition: $property $time;
+    transition: $property $time; 
+}
+//--------------------
+// (IE-v10+)
+@mixin IE_Only() {
+    @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) { @content; }
+} 
+// (FireFox)
+@mixin FF_Only() {
+    @-moz-document url-prefix() {@content;} 
+}
+// (Safari)
+@mixin SF_Only() {
+    @media not all and (min-resolution:.001dpcm) { @supports (-webkit-appearance:none) { @content; }}
+} 
+//@include SF_Only() { transition: none; }
+//--------------------
+@mixin mq($width, $type: max) {
+    @if map_has_key($breakpoints, $width) {
+        $width: map_get($breakpoints, $width);
+        @if $type == max {
+            $width: $width - 1px;
+        }
+        @media screen and (#{$type}-width: $width) {  
+            @content;  
+        }
+        @media print and (#{$type}-width: $width) {
+            @content;
+        }
+    }
+} 
+@mixin truncate($truncation-boundary) {
+    max-width: $truncation-boundary;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+} 
+@mixin truncate-multipleline($line-no) {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: $line-no;
+    -webkit-box-orient: vertical; 
+}
+@mixin css3-prefix($prop, $value) {
+    -webkit-#{$prop}: -webkit-#{$value};
+    -moz-#{$prop}: -moz-#{$value};
+    -ms-#{$prop}: -ms-#{$value};
+    -o-#{$prop}: -o-#{$value};
+    #{$prop}: #{$value};
+ }
+/*div {@include css3-prefix(transform, scale3d(2.5, 2, 1.5));}*/
+ @mixin vertical-center {
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+ }
+/*div {@include vertical-center();}*/
+ @mixin font-face($name, $file) {
+    @font-face {
+        font-family: "#{$name}";
+        src: url("../fonts/#{$file}.eot");
+        src: url("../fonts/#{$file}.eot?#iefix") format("embedded-opentype"),
+        url("../fonts/#{$file}.woff") format("woff"),
+        url("../fonts/#{$file}.ttf") format("truetype"),
+        url("../fonts/#{$file}.svg?#webfont") format("svg");
+    }
+ }
+ /*@include font-face("My Font", my-font);*/
+ @mixin abs-position ($top, $right, $bottom, $left) {
+    position: absolute; 
+    top: $top;
+    right: $right;
+    bottom: $bottom;
+    left: $left;
+ }
+ /*div {@include abs-position(100px, 100px, auto, auto);}*/
+@mixin backgroundImage($size, $repeat) {
+    background-size: $size;
+    background-repeat: $repeat;
+}
+@mixin card-overlay($height) {
+    width: 100%;
+    height: $height;
+}
+@mixin wrap-urls {
+    white-space: pre;
+    white-space: pre-wrap;
+    white-space: pre-line;
+    white-space: -o-pre-wrap;
+    white-space: -moz-pre-wrap;
+    white-space: -hp-pre-wrap;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+@mixin print(){
+    @media print {
+      @content;
+    }
+}
